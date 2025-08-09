@@ -33,30 +33,21 @@ You can observe everything in real time through a **pygame** interface, with pan
 
 ---
 
-## 🖼️ Interface Preview
+## 🖼️ LifeSim Simulation & Conflict Example
 
-Here’s a real example of the **LifeSim** simulation in action:
+Below is an animated **GIF** showing the **LifeSim** simulation in action,  
+including both regular life events and a conflict scenario.
 
-![LifeSim Interface](assets/images/interface_example.gif)
-
-On the left you can see the statistics panel with real-time graphs,  
-in the center the world map with agents (males in cyan, females in magenta, conflicts highlighted),  
-and on the right the legend with all active rules.
-
----
-
----
-
-## ⚔️ Conflict Example
-
-Below is an animated **GIF** showing a conflict scenario within LifeSim
-
-![LifeSim Conflict](assets/images/lifesim_conflict.gif)  
+![LifeSim Simulation & Conflict](assets/images/lifesim_demo.gif)
 
 In this clip, you can see:
-- Agents highlighted with **orange borders** when engaged in a conflict  
+- The **statistics panel** on the left with real-time graphs  
+- The **world map** in the center with agents:
+  - Males in cyan (color lightens when younger)
+  - Females in magenta (color lightens when younger)
+- **Conflicts** highlighted with orange borders  
 - Optional **flashing circles** marking the location of recent conflicts  
-- The surrounding environment with other agents and available resources
+- Regenerating resources visible on the terrain  
 
 ---
 
