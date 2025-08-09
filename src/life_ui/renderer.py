@@ -66,5 +66,5 @@ def draw_conflict_flashes(screen: pygame.Surface, flashes: list[tuple[float,int,
         py = int(cy * sy)
         alpha = int(60 + 120 * max(0.0, min(1.0, tleft / max(1e-6, cfg.conflict_flash_duration_s))))
         color = (255, 100, 0, alpha)
-        pygame.draw.circle(overlay, color, (px, py), r, width=1)
+        pygame.draw.circle(overlay, color, (px, py), r, width=3)
     screen.blit(overlay, (mx, my))

@@ -45,6 +45,22 @@ and on the right the legend with all active rules.
 
 ---
 
+---
+
+## ⚔️ Conflict Example
+
+Below is an animated **GIF** showing a conflict scenario within LifeSim:
+
+![LifeSim Conflict](assets/images/lifesim_conflict.gif)  
+*🔄 The animation starts automatically once the image loads.*
+
+In this clip, you can see:
+- Agents highlighted with **orange borders** when engaged in a conflict  
+- Optional **flashing circles** marking the location of recent conflicts  
+- The surrounding environment with other agents and available resources
+
+---
+
 ## 🗂️ Project Structure
 
 - **assets/** – Images and graphic resources  
