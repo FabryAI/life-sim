@@ -17,10 +17,36 @@ def layout_for_cfg(cfg: SimConfig, left_w: int, right_w: int) -> Tuple[Tuple[int
     return (win_w, win_h), map_rect
 
 def food_surface(food: np.ndarray) -> pygame.Surface:
-    vis = np.clip(food, 0.0, 1.0)
-    rgb = (vis * 255.0).astype(np.uint8)
-    rgb = np.repeat(rgb[:, :, None], 3, axis=2)
-    rgb = np.transpose(rgb, (1, 0, 2))
+    import numpy as np
+    import pygame
+
+    f = np.clip(food, 0.0, 1.0)
+
+    # ---- Parametri tarabili ----
+    vmin = 0.12   # sotto questa soglia: solo terreno
+    vmax = 0.60   # sopra: verde pieno
+    gamma = 0.6   # <1 enfatizza le zone ricche
+
+    # Colori
+    base = np.array([198, 180, 158], dtype=np.float32)   # terreno (marrone chiaro)
+    veg  = np.array([ 64, 168,  88], dtype=np.float32)   # verde della vegetazione (saturo ma non fluo)
+
+    # Base terreno (fisso)
+    rgb = np.empty(f.shape + (3,), dtype=np.float32)
+    rgb[..., 0] = base[0]
+    rgb[..., 1] = base[1]
+    rgb[..., 2] = base[2]
+
+    # Alpha dell'overlay vegetazione (0..1), solo dove c'è abbastanza cibo
+    t = np.clip((f - vmin) / max(1e-6, (vmax - vmin)), 0.0, 1.0) ** gamma
+    a = t[..., None]  # (H,W,1)
+
+    # Composizione: terreno + overlay verde
+    # Nota: qui non misceliamo verso il marrone: aggiungiamo *solo* la tinta verde.
+    rgb = rgb * (1.0 - a) + veg * a
+
+    rgb = np.clip(rgb, 0, 255).astype(np.uint8)
+    rgb = np.transpose(rgb, (1, 0, 2))  # (W,H,3) per Pygame
     return pygame.surfarray.make_surface(rgb)
 
 def age_tint(color_base: tuple[int,int,int], age_years: float, max_age: float) -> tuple[int,int,int]:
@@ -66,5 +92,5 @@ def draw_conflict_flashes(screen: pygame.Surface, flashes: list[tuple[float,int,
         py = int(cy * sy)
         alpha = int(60 + 120 * max(0.0, min(1.0, tleft / max(1e-6, cfg.conflict_flash_duration_s))))
         color = (255, 100, 0, alpha)
-        pygame.draw.circle(overlay, color, (px, py), r, width=3)
+        pygame.draw.circle(overlay, color, (px, py), r, width=2)
     screen.blit(overlay, (mx, my))

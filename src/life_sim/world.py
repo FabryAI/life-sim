@@ -14,11 +14,26 @@ class World:
     def create(cls, cfg: SimConfig) -> "World":
         rng = RNG(cfg.seed)
         h, w = cfg.height, cfg.width
+
+        food = np.zeros((h, w), dtype=np.float32)
+
         if cfg.initial_food_flat:
-            food = np.full((h, w), cfg.initial_food_mean, dtype=np.float32)
+            # Distribuzione piatta
+            food.fill(cfg.initial_food_mean)
         else:
-            # random intorno alla media, clamp in [0,1]
-            base = rng.np.random((h, w))
-            food = (0.5 * base + (cfg.initial_food_mean - 0.25)).astype(np.float32)
-            np.clip(food, 0.0, 1.0, out=food)
+            # Creazione di macchie di vegetazione
+            num_clusters = max(1, int((h * w) * cfg.initial_food_mean * 0.02))
+            for _ in range(num_clusters):
+                cx = rng.py.randrange(w)
+                cy = rng.py.randrange(h)
+                radius = rng.py.randint(3, 12)
+                yy, xx = np.ogrid[:h, :w]
+                mask = (xx - cx) ** 2 + (yy - cy) ** 2 <= radius ** 2
+                # Intensità casuale nella macchia
+                patch_intensity = rng.py.uniform(
+                    cfg.initial_food_mean * 0.5, 
+                    min(1.0, cfg.initial_food_mean * 1.5)
+                )
+                food[mask] = np.clip(food[mask] + patch_intensity, 0.0, 1.0)
+
         return cls(cfg=cfg, rng=rng, food=food)

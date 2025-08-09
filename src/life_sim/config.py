@@ -19,8 +19,8 @@ class SimConfig:
     time_unit: str = "month"  # "year" | "month" | "day"
 
     # Risorse
-    resource_regen_rate: float = 0.01
-    initial_food_mean: float = 0.00001
+    resource_regen_rate: float = 0.001
+    initial_food_mean: float = 0.2
     initial_food_flat: bool = False
 
     # Foraging
