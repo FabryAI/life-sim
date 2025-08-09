@@ -1,0 +1,7 @@
+seed = 42
+width = 512
+height = 512
+toroidal = true
+initial_agents = 800
+tick_rate_hz = 15
+resource_regen_rate = 0.01

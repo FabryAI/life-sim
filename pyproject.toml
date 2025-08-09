@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "life-sim"
+version = "0.1.0"
+description = "Simulatore 2D agent-based ispirato al Game of Life"
+authors = [{name = "You"}]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26",
+  "pygame>=2.5",
+  "numba>=0.59",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"life_sim" = ["py.typed"]
+"life_ui" = ["py.typed"]
