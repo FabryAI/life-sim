@@ -82,3 +82,12 @@ Clone the repository:
 ```bash
 git clone https://github.com/your-username/lifesim.git
 cd lifesim
+```
+Clone the repository:
+```bash 
+poetry install
+```
+Run:
+```bash 
+poetry run python -m life_ui.pygame_view
+```
