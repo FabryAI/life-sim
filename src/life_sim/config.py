@@ -4,8 +4,8 @@ from dataclasses import dataclass
 class SimConfig:
     # Mondo / base
     seed: int = 42
-    width: int = 128
-    height: int = 128
+    width: int = 200    
+    height: int = 200
     toroidal: bool = True
 
     # Popolazione iniziale
@@ -19,7 +19,7 @@ class SimConfig:
     time_unit: str = "month"  # "year" | "month" | "day"
 
     # Risorse
-    resource_regen_rate: float = 0.001
+    resource_regen_rate: float = 0.01
     initial_food_mean: float = 0.00001
     initial_food_flat: bool = False
 
